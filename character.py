@@ -1,23 +1,23 @@
 class Character:
-    def __init__(self, Health, Name, Attack):
-        self.Health = Health
-        self.Name = Name
-        self.Attack = Attack
+    def __init__(self, health, name, attack):
+        self.health = health
+        self.name = name
+        self.attack = attack
     
-    def ShowStatus(self):
-        print(f"{self.Name} has {self.Health} HP and {self.Attack} ATK.\n")
+    def show_status(self):
+        print(f"{self.name} has {self.health} HP and {self.attack} ATK.\n")
 
-    def HealthCheck(self):
-        self.ShowStatus()
-        if (self.Health <= 0):
-            print(f"{self.Name} has been defeated.\n")
+    def health_check(self):
+        self.show_status()
+        if (self.health <= 0):
+            print(f"{self.name} has been defeated.\n")
             quit()
 
-    def TakeDamage(self, Target):
-        self.Health = self.Health - Target.Attack
-        print(f"{self.Name} took {Target.Attack} damage from {Target.Name}.\n")
-        self.HealthCheck()
+    def take_damage(self, attacker):
+        self.health = self.health - attacker.attack
+        print(f"{self.name} took {attacker.attack} damage from {attacker.name}.\n")
+        self.health_check()
 
-    def AttackSequence(self, Target):
-        print(f"{self.Name} attacks {Target.Name}.\n")
-        Target.TakeDamage(self)
+    def attack_sequence(self, target):
+        print(f"{self.name} attacks {target.name}.\n")
+        target.take_damage(self)
