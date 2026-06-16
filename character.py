@@ -30,3 +30,12 @@ class Character:
     
     def heal_full(self):
         self.heal(self.max_health)
+
+    def to_dict(self):
+        return {
+            "max_health": self.max_health,
+            "health": self.health,
+            "attack": self.attack,
+            "name": self.name
+        }
+    
