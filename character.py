@@ -15,7 +15,7 @@ class Character:
             return True
 
     def take_damage(self, attacker):
-        self.health = self.health - attacker.attack
+        self.health = max(0, self.health - attacker.attack)
         print(f"{self.name} took {attacker.attack} damage from {attacker.name}.\n")
         self.health_check()
         self.show_status()
