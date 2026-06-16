@@ -4,3 +4,5 @@ class Character:
         self.Name = Name
         self.Attack = Attack
     
+    def ShowStatus(self):
+        print(f"{self.Name} has {self.Health} HP and {self.Attack} ATK.\n")
