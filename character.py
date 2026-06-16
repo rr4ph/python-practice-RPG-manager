@@ -12,3 +12,8 @@ class Character:
         if (self.Health <= 0):
             print(f"{self.Name} has been defeated.\n")
             quit()
+
+    def TakeDamage(self, Target):
+        self.Health = self.Health - Target.Attack
+        print(f"{self.Name} took {Target.Attack} damage from {Target.Name}.\n")
+        self.HealthCheck()
