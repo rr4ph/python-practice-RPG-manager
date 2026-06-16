@@ -17,3 +17,7 @@ class Character:
         self.Health = self.Health - Target.Attack
         print(f"{self.Name} took {Target.Attack} damage from {Target.Name}.\n")
         self.HealthCheck()
+
+    def AttackSequence(self, Target):
+        print(f"{self.Name} attacks {Target.Name}.\n")
+        Target.TakeDamage(self)
