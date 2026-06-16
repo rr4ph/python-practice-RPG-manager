@@ -1,5 +1,6 @@
 class Character:
     def __init__(self, health, name, attack):
+        self.max_health = health
         self.health = health
         self.name = name
         self.attack = attack
@@ -23,3 +24,9 @@ class Character:
     def attack_sequence(self, target):
         print(f"{self.name} attacks {target.name}.\n")
         target.take_damage(self)
+
+    def heal(self, amount):
+        self.health = min(self.max_health, self.health + amount)
+    
+    def heal_full(self):
+        self.heal(self.max_health)
