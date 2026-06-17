@@ -1,4 +1,5 @@
 import json
+from item import Item
 
 class Character:
     def __init__(self, max_health, health, name, attack):
@@ -6,6 +7,7 @@ class Character:
         self.health = health
         self.name = name
         self.attack = attack
+        self.inventory = []
     
     def show_status(self):
         print(f"{self.name} has {self.health} HP and {self.attack} ATK.\n")
@@ -45,8 +47,17 @@ class Character:
         with open("character.json", "w") as file:
             json.dump(self.to_dict(), file, indent=4)
 
+    def open_inventory(self):
+        if not self.inventory:
+            print("Your inventory is empty.")
+            return
+        
+        print("Current items in backpack: \n")
+        for index, item in enumerate(self.inventory, start=1):
+            print(f"{index}: {item.name}")
+        print()
+
 def load_data():
     with open("character.json") as file:
         char_data = json.load(file)
         return Character(char_data["max_health"], char_data["health"], char_data["name"], char_data["attack"])
-    
