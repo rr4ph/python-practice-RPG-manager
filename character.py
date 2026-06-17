@@ -67,6 +67,18 @@ class Character:
         else:
             print("Your inventory is full.")
 
+    def remove_inventory_item(self, item):
+            if not isinstance(item, Item):
+                print("Item you're trying to remove is not valid.")
+                return
+            for existingItem in self.inventory:
+                if existingItem.name.lower() == item.name.lower():
+                    self.inventory.remove(existingItem)
+                    print(f"{item.name} has been removed from the inventory.\n")
+                    break
+            else:
+                print("This item is not in your inventory.")
+
 def load_data():
     with open("character.json") as file:
         char_data = json.load(file)
