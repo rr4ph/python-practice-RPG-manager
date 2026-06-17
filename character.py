@@ -1,3 +1,5 @@
+import json
+
 class Character:
     def __init__(self, health, name, attack):
         self.max_health = health
@@ -38,4 +40,13 @@ class Character:
             "attack": self.attack,
             "name": self.name
         }
+    
+    def save_data(self):
+        with open("character.json", "w") as file:
+            json.dump(self.to_dict(), file, indent=4)
+
+def load_data():
+    with open("character.json", "w") as file:
+        char_data = json.load(file)
+        return Character(char_data["max_health"], char_data["health"], char_data["name"], char_data["attack"])
     
