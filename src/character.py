@@ -44,7 +44,7 @@ class Character:
         }
     
     def save_data(self):
-        with open("character.json", "w") as file:
+        with open("data/character.json", "w") as file:
             json.dump(self.to_dict(), file, indent=4)
 
     def open_inventory(self):
@@ -80,6 +80,6 @@ class Character:
                 print("This item is not in your inventory.")
 
 def load_data():
-    with open("character.json") as file:
+    with open("data/character.json") as file:
         char_data = json.load(file)
         return Character(char_data["max_health"], char_data["health"], char_data["name"], char_data["attack"])
