@@ -1,8 +1,8 @@
 import json
 
 class Character:
-    def __init__(self, health, name, attack):
-        self.max_health = health
+    def __init__(self, max_health, health, name, attack):
+        self.max_health = max_health
         self.health = health
         self.name = name
         self.attack = attack
