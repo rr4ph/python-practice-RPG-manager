@@ -11,7 +11,8 @@ def create_character():
                 break
         except ValueError:
             print("Invalid value, please, enter a whole number.")
-
+    max_health = health
+    
     while True:
         try:
             attack = int(input("Choose the damage of the character(5-20): "))
@@ -22,12 +23,12 @@ def create_character():
         except ValueError:
             print("Invalid value, please, enter whole number.")
 
-    return Character(health, name, attack)
+    return Character(max_health, health, name, attack)
 
 print("Welcome to RPG Manager v0.1\n")
 print("Create your character!\n")
 main_character = create_character()
-dummy = Character(100, "Dummy", 10)
+dummy = Character(100, 100, "Dummy", 10)
 
 while True:
     print("""
