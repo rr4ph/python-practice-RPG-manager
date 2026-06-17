@@ -1,4 +1,5 @@
-from character import Character
+from character import Character, load_data
+import json
 
 def create_character():
     name = input("Choose the name of the character: ")
@@ -12,7 +13,7 @@ def create_character():
         except ValueError:
             print("Invalid value, please, enter a whole number.")
     max_health = health
-    
+
     while True:
         try:
             attack = int(input("Choose the damage of the character(5-20): "))
@@ -25,10 +26,31 @@ def create_character():
 
     return Character(max_health, health, name, attack)
 
-print("Welcome to RPG Manager v0.1\n")
-print("Create your character!\n")
-main_character = create_character()
+print("Welcome to RPG Manager v0.2\n")
 dummy = Character(100, 100, "Dummy", 10)
+while True:
+    print("""
+          1. **Create** character!
+          --- OR ---
+          2. **Load** existing character!\n
+          """)
+    
+    
+    choice_create = input("Choose your action: \n").lower().strip()
+
+    if choice_create in ["1", "create", "createcharacter"]:
+        main_character = create_character()
+        print(f"{main_character.name} has been successfully created!")
+        main_character.save_data()
+        break
+    elif choice_create in ["2", "load", "loadcharacter", "loadexistingcharacter"]:
+        try:
+            main_character = load_data()
+            print(f"{main_character.name} has been successfully loaded!")
+            break
+        except json.JSONDecodeError:
+            print("Save file is empty or corrupted.")
+        
 
 while True:
     print("""
@@ -60,4 +82,3 @@ while True:
         break
     else:
         print("Invalid command.")
-    
