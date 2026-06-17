@@ -57,6 +57,16 @@ class Character:
             print(f"{index}: {item.name}")
         print()
 
+    def add_inventory_item(self, item):
+        if not isinstance(item, Item):
+            print("Item you're trying to add is not valid.")
+            return
+        elif len(self.inventory) < 10:
+            self.inventory.append(item)
+            print(f"{item.name} has been successfully added to the inventory.\n")
+        else:
+            print("Your inventory is full.")
+
 def load_data():
     with open("character.json") as file:
         char_data = json.load(file)
