@@ -56,7 +56,8 @@ while True:
     print("""
           1. Show Status
           2. Fight Dummy
-          3. Exit
+          3. Save Character
+          4. Exit
           """)
     
     choice = input("Choose your action: \n").lower().strip()
@@ -77,7 +78,10 @@ while True:
         main_character.heal_full()
         dummy.heal_full()
         print("Character rested up, HP restored to max.")
-    elif choice in ["3", "exit"]:
+    elif choice in ["3", "save", "savecharacter"]:
+        main_character.save_data()
+        print(f"{main_character.name} has been successfully saved!")
+    elif choice in ["4", "exit"]:
         print("Thanks for playing! Self-annihilation...")
         break
     else:
