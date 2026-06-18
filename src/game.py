@@ -1,10 +1,14 @@
 from character import Character, load_data
-import json
+import json, sys
 
 class Game:
     def __init__(self):
         self.main_character = None
         self.dummy = Character(100, 100, "Dummy", 10)
+
+    def exit_game(self):
+        print("Thanks for playing! Self-annihilation...")
+        sys.exit()
 
     def create_character(self):
         name = input("Choose the name of the character: ")
@@ -36,8 +40,8 @@ class Game:
         while True:
             print("""
                 1. **Create** character!
-                --- OR ---
-                2. **Load** existing character!\n
+                2. **Load** existing character!
+                3. **Exit** the game.\n
                 """)
             
             
@@ -53,8 +57,12 @@ class Game:
                     self.main_character = load_data()
                     print(f"{self.main_character.name} has been successfully loaded!")
                     return self.main_character
-                except json.JSONDecodeError:
+                except json.JSONDecodeError, FileNotFoundError:
                     print("Save file is empty or corrupted.")
+            elif choice_create in ["3", "exit", "exitgame"]:
+                self.exit_game()
+            else:
+                print("Invalid command.")
 
     def main_game_menu(self):
         while True:
@@ -87,7 +95,6 @@ class Game:
                 self.main_character.save_data()
                 print(f"{self.main_character.name} has been successfully saved!")
             elif choice in ["4", "exit"]:
-                print("Thanks for playing! Self-annihilation...")
-                break
+                self.exit_game()
             else:
                 print("Invalid command.")
