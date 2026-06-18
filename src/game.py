@@ -1,5 +1,6 @@
 from character import Character, load_data
 import json, sys
+from item import ITEM_DATABASE
 
 class Game:
     def __init__(self):
@@ -67,16 +68,19 @@ class Game:
     def main_game_menu(self):
         while True:
             print("""
+            Main Menu:
                 1. Show Status
                 2. Fight Dummy
                 3. Save Character
-                4. Exit
+                4. Open Inventory
+                5. Exit\n
                 """)
             
             choice = input("Choose your action: \n").lower().strip()
 
             if choice in ["1", "showstatus"]:
                 self.main_character.show_status()
+
             elif choice in ["2", "fightdummy"]:
                 while self.main_character.health > 0 and self.dummy.health > 0:
                     self.main_character.attack_sequence(self.dummy)
@@ -91,10 +95,86 @@ class Game:
                 self.main_character.heal_full()
                 self.dummy.heal_full()
                 print("Character rested up, HP restored to max.")
+
             elif choice in ["3", "save", "savecharacter"]:
                 self.main_character.save_data()
                 print(f"{self.main_character.name} has been successfully saved!")
-            elif choice in ["4", "exit"]:
+            
+            elif choice in ["4", "open", "openinventory"]:
+                self.inventory_menu()
+
+            elif choice in ["5", "exit"]:
                 self.exit_game()
+
             else:
                 print("Invalid command.")
+
+
+    def inventory_menu(self):
+        while True:
+            print("""
+            Inventory Menu:
+                1. Add item
+                2. Remove item
+                3. Use item
+                4. Check inventory
+                5. Exit inventory\n
+                """)
+            
+            choice = input("Choose your action: \n").lower().strip()
+
+            if choice in ["1", "add", "additem"]:
+                print("""
+                    1. Potion
+                    2. Sword
+                      """)
+                
+                item = input("Choose an item to add: \n").lower().strip()
+            
+                if item in ITEM_DATABASE:
+                    self.main_character.inventory.add_inventory_item(
+                        ITEM_DATABASE[item]()
+                    )
+                else:
+                    print("This item does not exist.")
+
+            elif choice in ["2", "remove", "removeitem"]:
+                if not self.main_character.inventory.items:
+                    print("Your inventory is empty.")
+                    return
+                
+                self.main_character.inventory.open_inventory()
+                item = input("Choose an item to remove: \n").lower().strip()
+
+                if item in ITEM_DATABASE:
+                    self.main_character.inventory.remove_inventory_item(
+                        ITEM_DATABASE[item]()
+                    )
+                else:
+                    print("This item does not exist.")
+
+            elif choice in ["3", "use", "useitem"]:
+                if not self.main_character.inventory.items:
+                    print("Your inventory is empty.")
+                    return
+                
+                self.main_character.inventory.open_inventory()
+                item = input("Choose the item to use: \n").lower().strip()
+
+                if item in ITEM_DATABASE:
+                    self.main_character.inventory.use_inventory_item(
+                        ITEM_DATABASE[item](),
+                        self.main_character
+                    )
+                else:
+                    print("This item does not exist.")
+                
+            elif choice in ["4", "check", "checkinventory"]:
+                self.main_character.inventory.open_inventory()
+            
+            elif choice in ["5", "exit", "exitinventory"]:
+                print("Leaving the inventory...")
+                break
+
+            else:
+                print("Command is not valid.")

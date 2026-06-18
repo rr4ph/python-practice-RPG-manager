@@ -22,7 +22,6 @@ class Character:
     def take_damage(self, attacker):
         self.health = max(0, self.health - attacker.attack)
         print(f"{self.name} took {attacker.attack} damage from {attacker.name}.\n")
-        self.health_check()
         self.show_status()
 
     def attack_sequence(self, target):
