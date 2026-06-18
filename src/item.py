@@ -30,3 +30,10 @@ class Sword(Item):
         super().use_item(character)
         character.attack += 5
         print(f"Equipped {self.name}, +5 ATK.")
+
+ITEM_DATABASE = {
+    "potion": Potion,
+    "1": Potion,
+    "sword": Sword,
+    "2": Sword
+}
