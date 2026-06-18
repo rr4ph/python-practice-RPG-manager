@@ -35,3 +35,15 @@ class Inventory:
                     break
             else:
                 print("This item is not in your inventory.")
+
+    def use_inventory_item(self, item, character):
+        if not isinstance(item, Item):
+                print("Item you're trying to use is not valid.")
+                return
+        for existingItem in self.items:
+            if existingItem.name.lower() == item.name.lower():
+                    item.use_item(character)
+                    self.remove_inventory_item(existingItem)
+                    break
+        else:
+            print(f"{item.name} is not in your inventory.")
