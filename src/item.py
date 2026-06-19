@@ -18,6 +18,7 @@ class Potion(Item):
         super().use_item(character)
         character.heal(50)
         print("Recovered 50 HP.")
+        character.inventory.remove_inventory_item(self)
         return True
 
 class Sword(Item):
@@ -34,17 +35,24 @@ class Sword(Item):
             print(f"Would you like to switch {character.equipped_weapon.name} to {self.name}?")
             choice = input("Y/N: ").lower().strip()
             if choice in ["y", "yes"]:
+                character.inventory.remove_inventory_item(self)
                 character.inventory.add_inventory_item(character.equipped_weapon)
                 character.attack -= character.equipped_weapon.damage
                 character.equipped_weapon = None
+                self.equip_item(character)
+                return True
             elif choice in ["n", "no"]:
                 print("Operation has been halted.")
                 return False
         super().use_item(character)
+        self.equip_item(character)
+        character.inventory.remove_inventory_item(self)
+        return True
+    
+    def equip_item(self, character):
         character.equipped_weapon = self
         character.attack += self.damage
         print(f"Equipped {self.name}, +{self.damage} ATK.")
-        return True
 
 ITEM_DATABASE = {
     "potion": Potion,

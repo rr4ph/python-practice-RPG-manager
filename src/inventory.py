@@ -50,16 +50,14 @@ class Inventory:
     def use_inventory_item(self, item, character):
         if isinstance(item, int):
             usedItem = self.items[item - 1]
-            if usedItem.use_item(character):  
-                self.remove_inventory_item(item)
+            usedItem.use_item(character) 
             return
         elif not isinstance(item, Item):
                 print("Item you're trying to use is not valid.")
                 return
         for existingItem in self.items:
             if existingItem.name.lower() == item.name.lower():
-                    if item.use_item(character):  
-                        self.remove_inventory_item(existingItem)
+                    item.use_item(character)
                     break
         else:
             print(f"{item.name} is not in your inventory.")
