@@ -48,5 +48,7 @@ class Sword(Item):
 
 ITEM_DATABASE = {
     "potion": Potion,
+    "1": Potion,
     "sword": Sword,
+    "2": Sword
 }

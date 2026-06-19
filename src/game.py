@@ -143,10 +143,18 @@ class Game:
                     print("Your inventory is empty.")
                     return
                 
-                self.main_character.inventory.open_inventory()
+                current_items = self.main_character.inventory.open_inventory()
                 item = input("Choose an item to remove: \n").lower().strip()
-
-                if item in ITEM_DATABASE:
+                if item.isdigit():
+                    for key, value in current_items.items():
+                        if int(key) == int(item):
+                            removableItem = ITEM_DATABASE[value]()
+                            self.main_character.inventory.remove_inventory_item(removableItem)
+                            break
+                    else:
+                        print("There's no item with such ID.")
+                        break
+                elif item in ITEM_DATABASE:
                     self.main_character.inventory.remove_inventory_item(
                         ITEM_DATABASE[item]()
                     )
@@ -158,10 +166,18 @@ class Game:
                     print("Your inventory is empty.")
                     return
                 
-                self.main_character.inventory.open_inventory()
+                current_items = self.main_character.inventory.open_inventory()
                 item = input("Choose the item to use: \n").lower().strip()
-
-                if item in ITEM_DATABASE:
+                if item.isdigit():
+                    for key, value in current_items.items():
+                        if int(key) == int(item):
+                            usedItem = ITEM_DATABASE[value]()
+                            self.main_character.inventory.use_inventory_item(usedItem, self.main_character)
+                            break
+                    else:
+                        print("There's no item with such ID.")
+                        break
+                elif item in ITEM_DATABASE:
                     self.main_character.inventory.use_inventory_item(
                         ITEM_DATABASE[item](),
                         self.main_character

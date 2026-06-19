@@ -10,9 +10,12 @@ class Inventory:
             return
         
         print("Current items in backpack: \n")
+        current_items = {}
         for index, item in enumerate(self.items, start=1):
+            current_items[index] = item.name.lower()
             print(f"{index}: {item.name}")
         print()
+        return current_items
 
     def add_inventory_item(self, item):
         if not isinstance(item, Item):
