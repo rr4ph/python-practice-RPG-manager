@@ -1,4 +1,4 @@
-# R-P-G (Raphael-Playing-Game) Manager 
+# R-P-G (Raphael-Playing-Game) Manager
 
 A small Python practice project created while refreshing Python fundamentals and learning object-oriented programming. The project is being developed incrementally to explore classes, inheritance, JSON data storage, inventory systems, and general software design principles.
 
@@ -47,3 +47,16 @@ A small Python practice project created while refreshing Python fundamentals and
 - Refactored menu system into the Game class
 - Reorganized project structure into source and data directories
 - Improved code modularity and separation of responsibilities
+
+### v0.3.5
+
+- Implemented weapon equipment system
+- Added weapon swapping functionality
+- Prevented infinite attack stacking from repeated weapon use
+- Added equipped weapon tracking for characters
+- Improved inventory item selection using inventory slot IDs
+- Added support for selecting items by both name and slot number
+- Fixed duplicate-item selection and removal issues
+- Fixed weapon swapping when inventory is at maximum capacity
+- Improved item usage flow and success/failure handling
+- Stabilized inventory and equipment edge cases
