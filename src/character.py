@@ -46,6 +46,9 @@ Attack: {self.attack} ATK""")
     def heal_full(self):
         self.heal(self.max_health)
 
+    def has_weapon(self):
+        return self.equipped_weapon is not None
+
     def to_dict(self):
         return {
             "max_health": self.max_health,
