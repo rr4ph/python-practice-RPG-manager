@@ -148,8 +148,7 @@ class Game:
                 if item.isdigit():
                     for key, value in current_items.items():
                         if int(key) == int(item):
-                            removableItem = ITEM_DATABASE[value]()
-                            self.main_character.inventory.remove_inventory_item(removableItem)
+                            self.main_character.inventory.remove_inventory_item(key)
                             break
                     else:
                         print("There's no item with such ID.")
@@ -171,8 +170,7 @@ class Game:
                 if item.isdigit():
                     for key, value in current_items.items():
                         if int(key) == int(item):
-                            usedItem = ITEM_DATABASE[value]()
-                            self.main_character.inventory.use_inventory_item(usedItem, self.main_character)
+                            self.main_character.inventory.use_inventory_item(key, self.main_character)
                             break
                     else:
                         print("There's no item with such ID.")
