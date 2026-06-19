@@ -42,8 +42,8 @@ class Inventory:
                 return
         for existingItem in self.items:
             if existingItem.name.lower() == item.name.lower():
-                    item.use_item(character)
-                    self.remove_inventory_item(existingItem)
+                    if item.use_item(character):  
+                        self.remove_inventory_item(existingItem)
                     break
         else:
             print(f"{item.name} is not in your inventory.")
