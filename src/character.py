@@ -8,9 +8,21 @@ class Character:
         self.name = name
         self.attack = attack
         self.inventory = Inventory()
+        self.equipped_weapon = None
     
-    def show_status(self):
-        print(f"{self.name} has {self.health} HP and {self.attack} ATK.\n")
+    def show_character_info(self):
+        print(f"""
+-- CHARACTER INFO --
+Name: {self.name}
+Health: {self.health}/{self.max_health} HP
+Attack: {self.attack} ATK""")
+        if not self.equipped_weapon:
+            print("Weapon: No weapon equipped.")
+        else:
+            print(f"Weapon: {self.equipped_weapon.name}")
+
+    def show_HP(self):
+        print(f"{self.name}: {self.health}/{self.max_health} HP.\n")
 
     def health_check(self):
         if (self.health <= 0):
@@ -22,7 +34,7 @@ class Character:
     def take_damage(self, attacker):
         self.health = max(0, self.health - attacker.attack)
         print(f"{self.name} took {attacker.attack} damage from {attacker.name}.\n")
-        self.show_status()
+        self.show_HP()
 
     def attack_sequence(self, target):
         print(f"{self.name} attacks {target.name}.\n")

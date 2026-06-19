@@ -79,7 +79,7 @@ class Game:
             choice = input("Choose your action: \n").lower().strip()
 
             if choice in ["1", "showstatus"]:
-                self.main_character.show_status()
+                self.main_character.show_character_info()
 
             elif choice in ["2", "fightdummy"]:
                 while self.main_character.health > 0 and self.dummy.health > 0:
