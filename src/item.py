@@ -35,7 +35,7 @@ class Sword(Item):
             print(f"Would you like to switch {character.equipped_weapon.name} to {self.name}?")
             choice = input("Y/N: ").lower().strip()
             if choice in ["y", "yes"]:
-                character.inventory.remove_inventory_item(self)
+                character.inventory.items.remove(self)
                 character.inventory.add_inventory_item(character.equipped_weapon)
                 character.attack -= character.equipped_weapon.damage
                 character.equipped_weapon = None
