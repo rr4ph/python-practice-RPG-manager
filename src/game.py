@@ -5,11 +5,26 @@ from item import ITEM_DATABASE
 class Game:
     def __init__(self):
         self.main_character = None
-        self.dummy = Character(100, 100, "Dummy", 10)
+        self.dummyEasy = Character(100, 100, "Flimsy Dummy", 10)
+        self.dummyMedium = Character(150, 150, "Sturdy Dummy", 15)
+        self.dummyHard = Character(200, 200, "Invincible Dummy", 20)
+        self.dummyCustom = None
 
     def exit_game(self):
         print("Thanks for playing! Self-annihilation...")
         sys.exit()
+
+    def fight_sequence(self, enemy):
+        while self.main_character.health > 0 and enemy.health > 0:
+            self.main_character.attack_sequence(enemy)
+
+            if not enemy.health_check():
+                break
+
+            enemy.attack_sequence(self.main_character)
+
+            if not self.main_character.health_check():
+                break
 
     def create_character(self):
         name = input("Choose the name of the character: ")
@@ -34,8 +49,7 @@ class Game:
             except ValueError:
                 print("Invalid value, please, enter whole number.")
 
-        self.main_character = Character(max_health, health, name, attack)
-        return self.main_character
+        return Character(max_health, health, name, attack)
 
     def character_creation_menu(self):
         while True:
@@ -49,7 +63,7 @@ class Game:
             choice_create = input("Choose your action: \n").lower().strip()
 
             if choice_create in ["1", "create", "createcharacter"]:
-                self.create_character()
+                self.main_character = self.create_character()
                 print(f"{self.main_character.name} has been successfully created!")
                 self.main_character.save_data()
                 return self.main_character
@@ -82,18 +96,9 @@ class Game:
                 self.main_character.show_character_info()
 
             elif choice in ["2", "fightdummy"]:
-                while self.main_character.health > 0 and self.dummy.health > 0:
-                    self.main_character.attack_sequence(self.dummy)
-
-                    if not self.dummy.health_check():
-                        break
-
-                    self.dummy.attack_sequence(self.main_character)
-
-                    if not self.main_character.health_check():
-                        break
+                self.fight_sequence(self.dummyEasy)
                 self.main_character.heal_full()
-                self.dummy.heal_full()
+                self.dummyEasy.heal_full()
                 print("Character rested up, HP restored to max.")
 
             elif choice in ["3", "save", "savecharacter"]:
