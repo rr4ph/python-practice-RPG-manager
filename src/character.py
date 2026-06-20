@@ -1,14 +1,15 @@
 import json
 from inventory import Inventory
+from item import ITEM_DATABASE
 
 class Character:
-    def __init__(self, max_health, health, name, attack):
+    def __init__(self, max_health, health, name, attack, inventory=None, equipped_weapon=None):
         self.max_health = max_health
         self.health = health
         self.name = name
         self.attack = attack
-        self.inventory = Inventory()
-        self.equipped_weapon = None
+        self.inventory = inventory or Inventory()
+        self.equipped_weapon = equipped_weapon
     
     def show_character_info(self):
         print(f"""
@@ -50,11 +51,18 @@ Attack: {self.attack} ATK""")
         return self.equipped_weapon is not None
 
     def to_dict(self):
+        inventory_list = []
+        for item in self.inventory.items:
+            inventory_list.append(item.name.lower())
+
         return {
             "max_health": self.max_health,
             "health": self.health,
+            "name": self.name,
             "attack": self.attack,
-            "name": self.name
+            "equipped_weapon":  (self.equipped_weapon.name.lower() if self.equipped_weapon
+                                else None),
+            "inventory": inventory_list
         }
     
     def save_data(self):
@@ -64,4 +72,22 @@ Attack: {self.attack} ATK""")
 def load_data():
     with open("data/saves/character.json") as file:
         char_data = json.load(file)
-        return Character(char_data["max_health"], char_data["health"], char_data["name"], char_data["attack"])
+
+        weapon_data = char_data["equipped_weapon"]
+        if weapon_data:
+            equipped_weapon = ITEM_DATABASE[weapon_data]()
+        else:
+            equipped_weapon = None
+
+        char_items = Inventory()
+        for item in char_data["inventory"]:
+            char_items.items.append(ITEM_DATABASE[item]())
+
+            
+        return Character(char_data["max_health"], 
+                         char_data["health"], 
+                         char_data["name"], 
+                         char_data["attack"], 
+                         char_items, 
+                         equipped_weapon
+                        )
