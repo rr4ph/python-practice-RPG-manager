@@ -84,7 +84,7 @@ class Game:
             print("""
             Main Menu:
                 1. Show Status
-                2. Fight Dummy
+                2. Enter Town
                 3. Save Character
                 4. Open Inventory
                 5. Exit\n
@@ -95,11 +95,8 @@ class Game:
             if choice in ["1", "showstatus"]:
                 self.main_character.show_character_info()
 
-            elif choice in ["2", "fightdummy"]:
-                self.fight_sequence(self.dummyEasy)
-                self.main_character.heal_full()
-                self.dummyEasy.heal_full()
-                print("Character rested up, HP restored to max.")
+            elif choice in ["2", "enter", "town", "entertown"]:
+                self.town_menu()
 
             elif choice in ["3", "save", "savecharacter"]:
                 self.main_character.save_data()
@@ -197,3 +194,60 @@ class Game:
 
             else:
                 print("Command is not valid.")
+
+    def town_menu(self):
+        while True:
+            print("""
+            Town of Gloosgaw Menu:
+                1. Inn (Restore HP)
+                2. Training Grounds (Fight Dummy)
+                3. Forest (Enemy encounters)
+                4. Exit (Return to main menu)\n
+                """)
+            
+            choice = input("Make your choice: \n").lower().strip()
+
+            if choice in ["1", "inn", "restore", "hp"]:
+                print(f"{self.main_character.name} rested at the Inn. HP fully restored.")
+                self.main_character.heal_full()
+            elif choice in ["2", "training", "fight", "fightdummy", "trainingrounds"]:
+                print(f"Ah, {self.main_character.name}, we already set up a row of new dummies. Pick your target.")
+                while True:
+                    fightChoice = input("""
+                                    Pick your difficulty:
+                                    1. Flimsy Dummy (Easy)
+                                    2. Sturdy Dummy (Medium)
+                                    3. Invincible Dummy (Hard)
+                                    4. Adjustable Dummy (Custom)
+                                    5. Exit
+                                        """).lower().strip()
+                    if fightChoice in ["1", "flimsy", "flimsydummy", "easy"]:
+                        print("This one had a rough day, go easy on the guy...or not.")
+                        self.fight_sequence(self.dummyEasy)
+                        self.dummyEasy.heal_full()
+                    elif fightChoice in ["2", "sturdy", "sturdydummy", "medium"]:
+                        print("Classic. Go on, give it your best!")
+                        self.fight_sequence(self.dummyMedium)
+                        self.dummyMedium.heal_full()
+                    elif fightChoice in ["3", "invincible", "invincibledummy", "hard"]:
+                        print("This one? Even I barely landed a hit, it's a tough nut to crack.")
+                        self.fight_sequence(self.dummyHard)
+                        self.dummyHard.heal_full()
+                    elif fightChoice in ["4", "adjustable", "adjustabledummy", "custom"]:
+                        print("Oh, we didn't finish working on this one yet. It's all yours.")
+                        self.dummyCustom = self.create_character()
+                        self.fight_sequence(self.dummyCustom)
+                        self.dummyCustom.heal_full()
+                    elif fightChoice in ["5", "exit", "q"]:
+                        print("Come back another time, it's been good seeing you!")
+                        break
+                    else:
+                        print(f"We don't have a dummy like that, {self.main_character.name}.")
+            elif choice in ["3", "forest", "enemy", "enemyencounter"]:
+                pass
+            elif choice in ["4", "exit", "q", "return", "mainmenu"]:
+                print("Returning to the main menu...")
+                break
+            else:
+                print("Command is not valid.")
+            
