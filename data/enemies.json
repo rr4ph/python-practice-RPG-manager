@@ -1,0 +1,26 @@
+{
+    "bandit":{
+        "max_health": 150,
+        "health": 150,
+        "name": "Bandit",
+        "attack": 15,
+        "equipped_weapon": null,
+        "inventory": []
+    },
+    "wolf":{
+        "max_health": 120,
+        "health":120,
+        "name": "Wolf",
+        "attack": 12,
+        "equipped_weapon": null,
+        "inventory": []
+    },
+    "goblin":{
+        "max_health": 100,
+        "health": 100,
+        "name": "Goblin",
+        "attack": 10,
+        "equipped_weapon": null,
+        "inventory": []
+    }
+}
