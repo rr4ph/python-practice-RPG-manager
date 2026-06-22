@@ -69,25 +69,38 @@ Attack: {self.attack} ATK""")
         with open("data/saves/character.json", "w") as file:
             json.dump(self.to_dict(), file, indent=4)
 
+def character_from_dict(char_data):
+    weapon_data = char_data["equipped_weapon"]
+    if weapon_data:
+        equipped_weapon = ITEM_DATABASE[weapon_data]()
+    else:
+        equipped_weapon = None
+
+    char_items = Inventory()
+    for item in char_data["inventory"]:
+        char_items.items.append(ITEM_DATABASE[item]())
+
+        
+    return Character(char_data["max_health"], 
+                        char_data["health"], 
+                        char_data["name"], 
+                        char_data["attack"], 
+                        char_items, 
+                        equipped_weapon
+                    )
+
 def load_data():
     with open("data/saves/character.json") as file:
         char_data = json.load(file)
 
-        weapon_data = char_data["equipped_weapon"]
-        if weapon_data:
-            equipped_weapon = ITEM_DATABASE[weapon_data]()
-        else:
-            equipped_weapon = None
+    return character_from_dict(char_data)
+    
+def load_enemy():
+    with open("data/enemies.json") as file:
+        enemy_data = json.load(file)
 
-        char_items = Inventory()
-        for item in char_data["inventory"]:
-            char_items.items.append(ITEM_DATABASE[item]())
+    goblin = character_from_dict(enemy_data["goblin"])
+    wolf = character_from_dict(enemy_data["wolf"])
+    bandit = character_from_dict(enemy_data["bandit"])
 
-            
-        return Character(char_data["max_health"], 
-                         char_data["health"], 
-                         char_data["name"], 
-                         char_data["attack"], 
-                         char_items, 
-                         equipped_weapon
-                        )
+       
