@@ -6,12 +6,15 @@ A small Python practice project created while refreshing Python fundamentals and
 
 - Create custom characters
 - Save and load character data using JSON
-- Turn-based combat against a training dummy
+- Turn-based combat system
 - Character status display
 - Health and healing system
 - Inventory system with item management
 - Item usage and equipment mechanics
+- Gold and reward system
 - Object-oriented item hierarchy using inheritance
+- Town hub with training and exploration activities
+- Random enemy encounters loaded from JSON
 - Input validation with exception handling
 - Interactive CLI menus
 
@@ -70,3 +73,12 @@ A small Python practice project created while refreshing Python fundamentals and
 - Refactored combat into a reusable fight sequence
 - Added reusable JSON-driven character loading utilities
 - Extended save/load support to persist inventory and equipped items
+
+### v0.5
+
+- Reworked combat from an autobattler into an interactive turn-based system
+- Added combat action menu (Attack, Use Item, Flee)
+- Added gold currency system for characters
+- Added enemy gold rewards on victory
+- Added gold loss penalty on defeat
+- Extended save/load support to persist character gold
