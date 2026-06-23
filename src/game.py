@@ -1,5 +1,5 @@
 from character import Character, load_data, load_random_enemy
-import json, sys
+import json, sys, random
 from item import ITEM_DATABASE
 
 class Game:
@@ -13,18 +13,6 @@ class Game:
     def exit_game(self):
         print("Thanks for playing! Self-annihilation...")
         sys.exit()
-
-    def fight_sequence(self, enemy):
-        while self.main_character.health > 0 and enemy.health > 0:
-            self.main_character.attack_sequence(enemy)
-
-            if not enemy.health_check():
-                break
-
-            enemy.attack_sequence(self.main_character)
-
-            if not self.main_character.health_check():
-                break
 
     def create_character(self):
         name = input("Choose the name of the character: ")
@@ -223,20 +211,20 @@ class Game:
                                         """).lower().strip()
                     if fightChoice in ["1", "flimsy", "flimsydummy", "easy"]:
                         print("This one had a rough day, go easy on the guy...or not.")
-                        self.fight_sequence(self.dummyEasy)
+                        self.fight_sequence_menu(self.dummyEasy)
                         self.dummyEasy.heal_full()
                     elif fightChoice in ["2", "sturdy", "sturdydummy", "medium"]:
                         print("Classic. Go on, give it your best!")
-                        self.fight_sequence(self.dummyMedium)
+                        self.fight_sequence_menu(self.dummyMedium)
                         self.dummyMedium.heal_full()
                     elif fightChoice in ["3", "invincible", "invincibledummy", "hard"]:
                         print("This one? Even I barely landed a hit, it's a tough nut to crack.")
-                        self.fight_sequence(self.dummyHard)
+                        self.fight_sequence_menu(self.dummyHard)
                         self.dummyHard.heal_full()
                     elif fightChoice in ["4", "adjustable", "adjustabledummy", "custom"]:
                         print("Oh, we didn't finish working on this one yet. It's all yours.")
                         self.dummyCustom = self.create_character()
-                        self.fight_sequence(self.dummyCustom)
+                        self.fight_sequence_menu(self.dummyCustom)
                         self.dummyCustom.heal_full()
                     elif fightChoice in ["5", "exit", "q"]:
                         print("Come back another time, it's been good seeing you!")
@@ -247,7 +235,7 @@ class Game:
                 print("You enter forest in pursuit of a challenge.\n")
                 enemy = load_random_enemy()
                 print(f"A {enemy.name} appeared!\n")
-                self.fight_sequence(enemy)
+                self.fight_sequence_menu(enemy)
                 if self.main_character.health == 0:
                     print("You lost consiousness, and later been found by guards and brought back.")
                 else:
@@ -257,4 +245,48 @@ class Game:
                 break
             else:
                 print("Command is not valid.")
-            
+
+    def fight_sequence_menu(self, enemy):
+        print(f"You've encountered {enemy.name}!\n")
+        while self.main_character.health > 0 and enemy.health > 0:
+            while True:
+                print("Fight menu:\n")
+                self.main_character.show_HP()
+                enemy.show_HP()
+                print(f"""
+-----------
+1. Attack
+2. Use item
+3. Flee
+""")
+                choice = input("Choose your action: ").lower().strip()
+                if choice in ["1", "attack"]:
+                    self.main_character.attack_sequence(enemy)
+                    if not enemy.health_check():
+                        return
+                    break
+                elif choice in ["2", "use", "useitem"]:
+                    if not self.main_character.inventory.items:
+                        print("Your inventory is empty.")
+                        continue
+                    self.main_character.inventory.open_inventory()
+                    inventory_choice = input("Choose the item to use, or `quit` to leave inventory: ").lower().strip()
+                    if inventory_choice.isdigit():
+                        inventory_choice = int(inventory_choice)
+                    if self.main_character.inventory.use_inventory_item(inventory_choice, self.main_character):
+                        break
+                    print("Leaving the inventory.")
+                elif choice in ["3", "flee"]:
+                    if random.random() < 0.5:
+                        print(f"You escaped {enemy.name}!")
+                        return
+                    else:
+                        print("Your attempt was unsuccesseful.\n")
+                        break
+                else:
+                    print("Input is not valid.")
+
+            enemy.attack_sequence(self.main_character)
+            if not self.main_character.health_check():
+                return
+                
