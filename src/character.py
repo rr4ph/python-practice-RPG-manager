@@ -35,7 +35,6 @@ Attack: {self.attack} ATK""")
     def take_damage(self, attacker):
         self.health = max(0, self.health - attacker.attack)
         print(f"{self.name} took {attacker.attack} damage from {attacker.name}.\n")
-        self.show_HP()
 
     def attack_sequence(self, target):
         print(f"{self.name} attacks {target.name}.\n")
