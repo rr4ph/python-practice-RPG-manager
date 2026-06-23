@@ -1,4 +1,4 @@
-from character import Character, load_data
+from character import Character, load_data, load_random_enemy
 import json, sys
 from item import ITEM_DATABASE
 
@@ -244,7 +244,14 @@ class Game:
                     else:
                         print(f"We don't have a dummy like that, {self.main_character.name}.")
             elif choice in ["3", "forest", "enemy", "enemyencounter"]:
-                pass
+                print("You enter forest in pursuit of a challenge.\n")
+                enemy = load_random_enemy()
+                print(f"A {enemy.name} appeared!\n")
+                self.fight_sequence(enemy)
+                if self.main_character.health == 0:
+                    print("You lost consiousness, and later been found by guards and brought back.")
+                else:
+                    print("Enemy fell by your hand, you return into the city with more experience.")
             elif choice in ["4", "exit", "q", "return", "mainmenu"]:
                 print("Returning to the main menu...")
                 break

@@ -1,4 +1,4 @@
-import json
+import json, random
 from inventory import Inventory
 from item import ITEM_DATABASE
 
@@ -95,12 +95,11 @@ def load_data():
 
     return character_from_dict(char_data)
     
-def load_enemy():
+def load_random_enemy():
     with open("data/enemies.json") as file:
         enemy_data = json.load(file)
 
-    goblin = character_from_dict(enemy_data["goblin"])
-    wolf = character_from_dict(enemy_data["wolf"])
-    bandit = character_from_dict(enemy_data["bandit"])
+    enemy_key = random.choice(list(enemy_data.keys()))
+    return character_from_dict(enemy_data[enemy_key])
 
        
