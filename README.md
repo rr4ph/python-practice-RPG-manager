@@ -60,3 +60,13 @@ A small Python practice project created while refreshing Python fundamentals and
 - Fixed weapon swapping when inventory is at maximum capacity
 - Improved item usage flow and success/failure handling
 - Stabilized inventory and equipment edge cases
+
+### v0.4
+
+- Added Town of Gloosgaw hub area
+- Added Training Grounds with configurable combat dummies
+- Added Forest exploration with random enemy encounters
+- Added JSON-based enemy system (Goblin, Wolf, Bandit)
+- Refactored combat into a reusable fight sequence
+- Added reusable JSON-driven character loading utilities
+- Extended save/load support to persist inventory and equipped items
