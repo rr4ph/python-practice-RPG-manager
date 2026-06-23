@@ -263,6 +263,8 @@ class Game:
                 if choice in ["1", "attack"]:
                     self.main_character.attack_sequence(enemy)
                     if not enemy.health_check():
+                        print(f"You found {enemy.gold} coins.\n")
+                        self.main_character.gold += enemy.gold
                         return
                     break
                 elif choice in ["2", "use", "useitem"]:
@@ -288,5 +290,8 @@ class Game:
 
             enemy.attack_sequence(self.main_character)
             if not self.main_character.health_check():
+                gold_loss = max(1, self.main_character.gold // 10)
+                print(f"You lost {gold_loss} coins!\n")
+                self.main_character.gold -= gold_loss
                 return
                 
