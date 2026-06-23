@@ -3,20 +3,22 @@ from inventory import Inventory
 from item import ITEM_DATABASE
 
 class Character:
-    def __init__(self, max_health, health, name, attack, inventory=None, equipped_weapon=None):
+    def __init__(self, max_health, health, name, attack, inventory=None, equipped_weapon=None, gold=0):
         self.max_health = max_health
         self.health = health
         self.name = name
         self.attack = attack
         self.inventory = inventory or Inventory()
         self.equipped_weapon = equipped_weapon
+        self.gold = gold 
     
     def show_character_info(self):
         print(f"""
 -- CHARACTER INFO --
 Name: {self.name}
 Health: {self.health}/{self.max_health} HP
-Attack: {self.attack} ATK""")
+Attack: {self.attack} ATK
+Gold: {self.gold} coins""")
         if not self.equipped_weapon:
             print("Weapon: No weapon equipped.")
         else:
@@ -61,7 +63,8 @@ Attack: {self.attack} ATK""")
             "attack": self.attack,
             "equipped_weapon":  (self.equipped_weapon.name.lower() if self.equipped_weapon
                                 else None),
-            "inventory": inventory_list
+            "inventory": inventory_list,
+            "gold": self.gold
         }
     
     def save_data(self):
@@ -85,7 +88,8 @@ def character_from_dict(char_data):
                         char_data["name"], 
                         char_data["attack"], 
                         char_items, 
-                        equipped_weapon
+                        equipped_weapon,
+                        char_data["gold"]
                     )
 
 def load_data():

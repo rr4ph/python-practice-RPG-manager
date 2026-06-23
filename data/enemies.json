@@ -5,7 +5,8 @@
         "name": "Bandit",
         "attack": 15,
         "equipped_weapon": null,
-        "inventory": []
+        "inventory": [],
+        "gold": 10
     },
     "wolf":{
         "max_health": 120,
@@ -13,7 +14,8 @@
         "name": "Wolf",
         "attack": 12,
         "equipped_weapon": null,
-        "inventory": []
+        "inventory": [],
+        "gold": 7
     },
     "goblin":{
         "max_health": 100,
@@ -21,6 +23,7 @@
         "name": "Goblin",
         "attack": 10,
         "equipped_weapon": null,
-        "inventory": []
+        "inventory": [],
+        "gold": 5
     }
 }
