@@ -25,5 +25,14 @@
         "equipped_weapon": null,
         "inventory": [],
         "gold": 5
+    },
+    "banditleader":{
+        "max_health": 250,
+        "health": 250,
+        "name": "Bandit Leader",
+        "attack": 25,
+        "equipped_weapon": null,
+        "inventory": [],
+        "gold": 100
     }
 }
