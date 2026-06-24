@@ -49,7 +49,7 @@ class Game:
                 """))
             
             
-            choice_create = input("Choose your action: \n").lower().strip()
+            choice_create = input("Choose your action: ").lower().strip()
 
             if choice_create in ["1", "create", "createcharacter"]:
                 self.main_character = self.create_character()
@@ -79,7 +79,7 @@ class Game:
                 5. Exit\n
                 """))
             
-            choice = input("Choose your action: \n").lower().strip()
+            choice = input("Choose your action: ").lower().strip()
 
             if choice in ["1", "showstatus"]:
                 self.main_character.show_character_info()
@@ -111,52 +111,61 @@ class Game:
                 4. Exit inventory\n
                 """))
             
-            choice = input("Choose your action: \n").lower().strip()
+            choice = input("Choose your action: ").lower().strip()
 
             if choice in ["1", "remove", "removeitem"]:
-                if not self.main_character.inventory.items:
-                    print("Your inventory is empty.")
-                    return
-                
-                current_items = self.main_character.inventory.open_inventory()
-                item = input("Choose an item to remove: \n").lower().strip()
-                if item.isdigit():
-                    for key, value in current_items.items():
-                        if int(key) == int(item):
-                            self.main_character.inventory.remove_inventory_item(key)
-                            break
-                    else:
-                        print("There's no item with such ID.")
+                while True:
+                    if not self.main_character.inventory.items:
+                        print("Your inventory is empty.")
                         break
-                elif item in ITEM_DATABASE:
-                    self.main_character.inventory.remove_inventory_item(
-                        ITEM_DATABASE[item]()
-                    )
-                else:
-                    print("This item does not exist.")
+                    
+                    current_items = self.main_character.inventory.open_inventory()
+                    print("You can also quit with `q` or quit command.\n")
+                    item = input("Choose an item to remove, or quit: ").lower().strip()
+
+                    if item in ["q", "quit"]:
+                        break
+                    if item.isdigit():
+                        for key, value in current_items.items():
+                            if int(key) == int(item):
+                                self.main_character.inventory.remove_inventory_item(key)
+                                break
+                        else:
+                            print("There's no item with such ID.")
+                    elif item in ITEM_DATABASE:
+                        self.main_character.inventory.remove_inventory_item(
+                            ITEM_DATABASE[item]()
+                        )
+                    else:
+                        print("This item does not exist.")
 
             elif choice in ["2", "use", "useitem"]:
-                if not self.main_character.inventory.items:
-                    print("Your inventory is empty.")
-                    return
-                
-                current_items = self.main_character.inventory.open_inventory()
-                item = input("Choose the item to use: \n").lower().strip()
-                if item.isdigit():
-                    for key, value in current_items.items():
-                        if int(key) == int(item):
-                            self.main_character.inventory.use_inventory_item(key, self.main_character)
-                            break
-                    else:
-                        print("There's no item with such ID.")
+                while True:
+                    if not self.main_character.inventory.items:
+                        print("Your inventory is empty.")
                         break
-                elif item in ITEM_DATABASE:
-                    self.main_character.inventory.use_inventory_item(
-                        ITEM_DATABASE[item](),
-                        self.main_character
-                    )
-                else:
-                    print("This item does not exist.")
+                    
+                    current_items = self.main_character.inventory.open_inventory()
+                    print("You can also quit with `q` or quit command.\n")
+                    item = input("Choose the item to use, or quit: ").lower().strip()
+
+                    if item in ["q", "quit"]:
+                        break
+
+                    if item.isdigit():
+                        for key, value in current_items.items():
+                            if int(key) == int(item):
+                                self.main_character.inventory.use_inventory_item(key, self.main_character)
+                                break
+                        else:
+                            print("There's no item with such ID.")
+                    elif item in ITEM_DATABASE:
+                        self.main_character.inventory.use_inventory_item(
+                            ITEM_DATABASE[item](),
+                            self.main_character
+                        )
+                    else:
+                        print("This item does not exist.")
                 
             elif choice in ["3", "check", "checkinventory"]:
                 self.main_character.inventory.open_inventory()
@@ -179,7 +188,7 @@ class Game:
                 5. Exit (Return to main menu)\n
                 """))
             
-            choice = input("Make your choice: \n").lower().strip()
+            choice = input("Make your choice: ").lower().strip()
 
             if choice in ["1", "inn", "restore", "hp"]:
                 print(f"{self.main_character.name} rested at the Inn. HP fully restored.")
@@ -305,7 +314,7 @@ class Game:
                         3. Quit\n
                             """))
                     
-                    purchase = input("Choose an item to purchase, or quit: \n").lower().strip()
+                    purchase = input("Choose an item to purchase, or quit: ").lower().strip()
 
                     if purchase in ["3", "quit"]:
                         break
