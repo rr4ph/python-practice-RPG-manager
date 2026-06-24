@@ -1,6 +1,6 @@
 from character import Character, load_data, load_random_enemy, load_enemy
 import json, sys, random
-from item import ITEM_DATABASE, Item
+from item import ITEM_DATABASE
 from textwrap import dedent
 
 class Game:
@@ -19,8 +19,8 @@ class Game:
         name = input("Choose the name of the character: ")
         while True:
             try:
-                health = int(input("Choose the health of the character(50-200): "))
-                if not 50 <= health <= 200:
+                health = int(input("Choose the health of the character(200-350): "))
+                if not 200 <= health <= 350:
                     print("Invalid health value. Try again.")
                 else:
                     break
@@ -30,8 +30,8 @@ class Game:
 
         while True:
             try:
-                attack = int(input("Choose the damage of the character(5-20): "))
-                if not 5 <= attack <= 20:
+                attack = int(input("Choose the damage of the character(20-35): "))
+                if not 20 <= attack <= 35:
                     print("Invalid attack value. Try again.")
                 else:
                     break
@@ -95,7 +95,14 @@ class Game:
                 self.inventory_menu()
 
             elif choice in ["5", "exit"]:
-                self.exit_game()
+                print("Are you sure you want to leave the game? Don't forget to save the character.")
+                choice = input("Y/N: ").lower().strip()
+                if choice in ["y", "yes"]:
+                    self.exit_game()
+                elif choice in ["n", "no"]:
+                    continue
+                else:
+                    print("Command is not valid.")
 
             else:
                 print("Invalid command.")
@@ -207,20 +214,20 @@ class Game:
                                         """)).lower().strip()
                     if fightChoice in ["1", "flimsy", "flimsydummy", "easy"]:
                         print("This one had a rough day, go easy on the guy...or not.")
-                        self.fight_sequence_menu(self.dummyEasy)
+                        self.fight_sequence_menu(self.dummyEasy, lose_gold_on_death=False)
                         self.dummyEasy.heal_full()
                     elif fightChoice in ["2", "sturdy", "sturdydummy", "medium"]:
                         print("Classic. Go on, give it your best!")
-                        self.fight_sequence_menu(self.dummyMedium)
+                        self.fight_sequence_menu(self.dummyMedium, lose_gold_on_death=False)
                         self.dummyMedium.heal_full()
                     elif fightChoice in ["3", "invincible", "invincibledummy", "hard"]:
                         print("This one? Even I barely landed a hit, it's a tough nut to crack.")
-                        self.fight_sequence_menu(self.dummyHard)
+                        self.fight_sequence_menu(self.dummyHard, lose_gold_on_death=False)
                         self.dummyHard.heal_full()
                     elif fightChoice in ["4", "adjustable", "adjustabledummy", "custom"]:
                         print("Oh, we didn't finish working on this one yet. It's all yours.")
                         self.dummyCustom = self.create_character()
-                        self.fight_sequence_menu(self.dummyCustom)
+                        self.fight_sequence_menu(self.dummyCustom, lose_gold_on_death=False)
                         self.dummyCustom.heal_full()
                     elif fightChoice in ["5", "exit", "q"]:
                         print("Come back another time, it's been good seeing you!")
@@ -265,6 +272,9 @@ class Game:
                             if self.main_character.health == 0:
                                 print("Come back stronger next time!")
                                 return
+                            
+                            print("You patch up your wounds before next battle, 50 HP restored.")
+                            self.main_character.heal(50)
 
                         self.victory_screen()   
 
@@ -283,7 +293,7 @@ class Game:
             else:
                 print("Command is not valid.")
 
-    def fight_sequence_menu(self, enemy):
+    def fight_sequence_menu(self, enemy, lose_gold_on_death=True):
         print(f"You've encountered {enemy.name}!\n")
         while self.main_character.health > 0 and enemy.health > 0:
             while True:
@@ -326,9 +336,12 @@ class Game:
 
             enemy.attack_sequence(self.main_character)
             if not self.main_character.health_check():
-                gold_loss = max(1, self.main_character.gold // 10)
-                print(f"You lost {gold_loss} coins!\n")
-                self.main_character.gold -= gold_loss
+                if lose_gold_on_death:
+                    gold_loss = max(1, self.main_character.gold // 10)
+                    print(f"You lost {gold_loss} coins!\n")
+                    self.main_character.gold -= gold_loss
+                self.main_character.heal_full()
+                print("You rest up, and restore your health after defeat.")
                 return
             
     def shop_menu(self):
@@ -365,9 +378,12 @@ class Game:
                             print(f"Sorry, {self.main_character.name}, you're a few coins short.")
                             continue
                         else:
-                            self.main_character.gold -= item.cost
-                            self.main_character.inventory.add_inventory_item(item)
-                            print("Thanks for the purchase!")
+                            if self.main_character.inventory.add_inventory_item(item):
+                                self.main_character.gold -= item.cost
+                                print("Thanks for the purchase!")
+                            else:
+                                print("Where do you plan to carry all this stuff? Clean up your inventory, friend!")
+                                continue
                     else:
                         print("This item does not exist.")
 

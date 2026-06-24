@@ -6,7 +6,7 @@
         "attack": 15,
         "equipped_weapon": null,
         "inventory": [],
-        "gold": 10
+        "gold": 25
     },
     "wolf":{
         "max_health": 120,
@@ -15,7 +15,7 @@
         "attack": 12,
         "equipped_weapon": null,
         "inventory": [],
-        "gold": 7
+        "gold": 20
     },
     "goblin":{
         "max_health": 100,
@@ -24,7 +24,7 @@
         "attack": 10,
         "equipped_weapon": null,
         "inventory": [],
-        "gold": 5
+        "gold": 15
     },
     "banditleader":{
         "max_health": 250,
