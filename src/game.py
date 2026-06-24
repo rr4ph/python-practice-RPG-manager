@@ -1,4 +1,4 @@
-from character import Character, load_data, load_random_enemy
+from character import Character, load_data, load_random_enemy, load_enemy
 import json, sys, random
 from item import ITEM_DATABASE, Item
 from textwrap import dedent
@@ -193,6 +193,7 @@ class Game:
             if choice in ["1", "inn", "restore", "hp"]:
                 print(f"{self.main_character.name} rested at the Inn. HP fully restored.")
                 self.main_character.heal_full()
+                
             elif choice in ["2", "training", "fight", "fightdummy", "trainingrounds"]:
                 print(f"Ah, {self.main_character.name}, we already set up a row of new dummies. Pick your target.")
                 while True:
@@ -226,17 +227,52 @@ class Game:
                         break
                     else:
                         print(f"We don't have a dummy like that, {self.main_character.name}.")
+
             elif choice in ["3", "forest", "enemy", "enemyencounter"]:
                 print("You enter forest in pursuit of a challenge.\n")
-                enemy = load_random_enemy()
-                print(f"A {enemy.name} appeared!\n")
-                self.fight_sequence_menu(enemy)
-                if self.main_character.health == 0:
-                    print("You lost consiousness, and later been found by guards and brought back.")
-                else:
-                    print("Enemy fell by your hand, you return into the city with more experience.")
+                while True:
+                    print(dedent("""
+                                1. Random Encounter
+                                2. Boss Rush (FINAL CHALLENGE)
+                                3. Exit
+                                """))
+                    
+                    choice = input("Choose your action: ").lower().strip()
+
+                    if choice in ["1", "random", "randomencounter"]:
+                        enemy = load_random_enemy()
+                        print(f"A {enemy.name} appeared!\n")
+                        self.fight_sequence_menu(enemy)
+                        if self.main_character.health == 0:
+                            print("You lost consiousness, and later been found by guards and brought back.")
+                            break
+                        else:
+                            print("Enemy fell by your hand, you gain more experience.")
+                    elif choice in ["2", "boss", "bossrush"]:
+                        enemies = [
+                            load_enemy("goblin"),
+                            load_enemy("wolf"),
+                            load_enemy("bandit"),
+                            load_enemy("banditleader")
+                        ]
+
+                        for index, enemy in enumerate(enemies, start=1):
+                            print(f"Battle {index}/{len(enemies)}, {enemy.name} approaches!\n")
+
+                            self.fight_sequence_menu(enemy)
+
+                            if self.main_character.health == 0:
+                                print("Come back stronger next time!")
+                                return
+                    elif choice in ["3", "exit", "q"]:
+                        print("You return to the city...")
+                        break
+                    else:
+                        print("Command is not valid.")
+
             elif choice in ["4", "shop", "buy", "sell"]:
                 self.shop_menu()
+
             elif choice in ["5", "exit", "q", "return", "mainmenu"]:
                 print("Returning to the main menu...")
                 break

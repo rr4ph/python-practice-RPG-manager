@@ -101,8 +101,19 @@ def load_data():
 def load_random_enemy():
     with open("data/enemies.json") as file:
         enemy_data = json.load(file)
+    
+    possible_enemies = [
+        key for key in enemy_data
+        if key != "banditleader"
+    ]
+        
+    enemy_key = random.choice(possible_enemies)
 
-    enemy_key = random.choice(list(enemy_data.keys()))
     return character_from_dict(enemy_data[enemy_key])
 
+def load_enemy(enemy_key):
+    with open("data/enemies.json") as file:
+        enemy_data = json.load(file)
+    
+    return character_from_dict(enemy_data[enemy_key])
        
