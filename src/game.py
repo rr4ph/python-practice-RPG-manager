@@ -193,7 +193,7 @@ class Game:
             if choice in ["1", "inn", "restore", "hp"]:
                 print(f"{self.main_character.name} rested at the Inn. HP fully restored.")
                 self.main_character.heal_full()
-                
+
             elif choice in ["2", "training", "fight", "fightdummy", "trainingrounds"]:
                 print(f"Ah, {self.main_character.name}, we already set up a row of new dummies. Pick your target.")
                 while True:
@@ -248,6 +248,7 @@ class Game:
                             break
                         else:
                             print("Enemy fell by your hand, you gain more experience.")
+
                     elif choice in ["2", "boss", "bossrush"]:
                         enemies = [
                             load_enemy("goblin"),
@@ -264,6 +265,9 @@ class Game:
                             if self.main_character.health == 0:
                                 print("Come back stronger next time!")
                                 return
+
+                        self.victory_screen()   
+
                     elif choice in ["3", "exit", "q"]:
                         print("You return to the city...")
                         break
@@ -411,4 +415,20 @@ class Game:
             else:
                 print("Command is not valid.")
 
+    def victory_screen(self):
+        print(f"""
+===================================
+
+          VICTORY
+
+===================================
+
+The Bandit Leader has fallen.
+
+The roads around Gloosgaw are safe once more.
+
+{self.main_character.name}'s journey has come to an end.
+
+Thank you for completing Raphael-Playing-Game.
+""")
                     
