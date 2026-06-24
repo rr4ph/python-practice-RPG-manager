@@ -1,21 +1,23 @@
 # R-P-G (Raphael-Playing-Game) Manager
 
-A small Python practice project created while refreshing Python fundamentals and learning object-oriented programming. The project is being developed incrementally to explore classes, inheritance, JSON data storage, inventory systems, and general software design principles.
+A small Python practice project created while refreshing Python fundamentals and learning object-oriented programming. The project was developed incrementally to explore classes, inheritance, JSON data storage, inventory systems, combat mechanics, and general software design principles.
 
 ## Features
 
 - Create custom characters
 - Save and load character data using JSON
-- Turn-based combat system
+- Interactive turn-based combat system
 - Character status display
 - Health and healing system
 - Inventory system with item management
 - Item usage and equipment mechanics
-- Gold and reward system
-- Object-oriented item hierarchy using inheritance
+- Weapon swapping and equipment tracking
+- Gold, rewards, and economy system
+- Shop system for buying and selling items
 - Town hub with training and exploration activities
-- Random enemy encounters loaded from JSON
-- Input validation with exception handling
+- Training Grounds with configurable combat dummies
+- Random enemy encounters
+- Boss Rush endgame challenge
 - Interactive CLI menus
 
 ## Version History
@@ -70,7 +72,6 @@ A small Python practice project created while refreshing Python fundamentals and
 - Added Training Grounds with configurable combat dummies
 - Added Forest exploration with random enemy encounters
 - Added JSON-based enemy system (Goblin, Wolf, Bandit)
-- Refactored combat into a reusable fight sequence
 - Added reusable JSON-driven character loading utilities
 - Extended save/load support to persist inventory and equipped items
 
@@ -82,3 +83,16 @@ A small Python practice project created while refreshing Python fundamentals and
 - Added enemy gold rewards on victory
 - Added gold loss penalty on defeat
 - Extended save/load support to persist character gold
+
+### v1.0
+
+- Added fully functional shop system
+- Added item pricing and economy balancing
+- Added item buying and selling mechanics
+- Improved inventory navigation and usability
+- Added Boss Rush challenge mode
+- Added Bandit Leader final boss encounter
+- Refined enemy rewards and progression pacing
+- Improved combat and progression balancing through playtesting
+- Added game completion and victory sequence
+- Completed the core gameplay loop from character creation to final boss
