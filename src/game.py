@@ -1,6 +1,7 @@
 from character import Character, load_data, load_random_enemy
 import json, sys, random
 from item import ITEM_DATABASE
+from textwrap import dedent
 
 class Game:
     def __init__(self):
@@ -41,11 +42,11 @@ class Game:
 
     def character_creation_menu(self):
         while True:
-            print("""
+            print(dedent("""
                 1. **Create** character!
                 2. **Load** existing character!
                 3. **Exit** the game.\n
-                """)
+                """))
             
             
             choice_create = input("Choose your action: \n").lower().strip()
@@ -69,14 +70,14 @@ class Game:
 
     def main_game_menu(self):
         while True:
-            print("""
+            print(dedent("""
             Main Menu:
                 1. Show Status
                 2. Enter Town
                 3. Save Character
                 4. Open Inventory
                 5. Exit\n
-                """)
+                """))
             
             choice = input("Choose your action: \n").lower().strip()
 
@@ -102,22 +103,22 @@ class Game:
 
     def inventory_menu(self):
         while True:
-            print("""
+            print(dedent("""
             Inventory Menu:
                 1. Add item
                 2. Remove item
                 3. Use item
                 4. Check inventory
                 5. Exit inventory\n
-                """)
+                """))
             
             choice = input("Choose your action: \n").lower().strip()
 
             if choice in ["1", "add", "additem"]:
-                print("""
+                print(dedent("""
                     1. Potion
                     2. Sword
-                      """)
+                      """))
                 
                 item = input("Choose an item to add: \n").lower().strip()
             
@@ -185,13 +186,13 @@ class Game:
 
     def town_menu(self):
         while True:
-            print("""
+            print(dedent("""
             Town of Gloosgaw Menu:
                 1. Inn (Restore HP)
                 2. Training Grounds (Fight Dummy)
                 3. Forest (Enemy encounters)
                 4. Exit (Return to main menu)\n
-                """)
+                """))
             
             choice = input("Make your choice: \n").lower().strip()
 
@@ -201,14 +202,14 @@ class Game:
             elif choice in ["2", "training", "fight", "fightdummy", "trainingrounds"]:
                 print(f"Ah, {self.main_character.name}, we already set up a row of new dummies. Pick your target.")
                 while True:
-                    fightChoice = input("""
+                    fightChoice = input(dedent("""
                                     Pick your difficulty:
                                     1. Flimsy Dummy (Easy)
                                     2. Sturdy Dummy (Medium)
                                     3. Invincible Dummy (Hard)
                                     4. Adjustable Dummy (Custom)
                                     5. Exit
-                                        """).lower().strip()
+                                        """)).lower().strip()
                     if fightChoice in ["1", "flimsy", "flimsydummy", "easy"]:
                         print("This one had a rough day, go easy on the guy...or not.")
                         self.fight_sequence_menu(self.dummyEasy)
@@ -250,15 +251,14 @@ class Game:
         print(f"You've encountered {enemy.name}!\n")
         while self.main_character.health > 0 and enemy.health > 0:
             while True:
-                print("Fight menu:\n")
+                print("Fight menu:")
                 self.main_character.show_HP()
                 enemy.show_HP()
-                print(f"""
------------
-1. Attack
-2. Use item
-3. Flee
-""")
+                print(dedent("""
+                        1. Attack
+                        2. Use item
+                        3. Flee
+                        """))
                 choice = input("Choose your action: ").lower().strip()
                 if choice in ["1", "attack"]:
                     self.main_character.attack_sequence(enemy)
