@@ -31,31 +31,35 @@ class Inventory:
 
     def remove_inventory_item(self, item):
             if isinstance(item, int):
-                print(item)
+                if not (1 <= item <= len(self.items)):
+                    print("There's no item with such ID.")
+                    return False
+                
                 removableItem = self.items[item - 1]
                 print(f"{removableItem.name} has been removed from the inventory.\n")
                 self.items.pop(item - 1)
-                return
+                return True
             elif not isinstance(item, Item):
                 print("Item you're trying to remove is not valid.")
-                return
+                return False
             for existingItem in self.items:
                 if existingItem.name.lower() == item.name.lower():
                     self.items.remove(existingItem)
                     print(f"{item.name} has been removed from the inventory.\n")
-                    break
+                    return True
             else:
                 print("This item is not in your inventory.")
+                return False
 
     def use_inventory_item(self, item, character):
         if isinstance(item, int):
-            try:
-                usedItem = self.items[item - 1]
-                usedItem.use_item(character) 
-                return True
-            except IndexError:
-                 print("There's no item with such ID.")
-                 return False
+            if not (1 <= item <= len(self.items)):
+                print("There's no item with such ID.")
+                return False
+            
+            usedItem = self.items[item - 1]
+            usedItem.use_item(character) 
+            return True
         elif not isinstance(item, Item):
                 print("Item you're trying to use is not valid.")
                 return False

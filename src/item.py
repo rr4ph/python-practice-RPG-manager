@@ -1,7 +1,8 @@
 class Item:
-    def __init__(self, name, description):
+    def __init__(self, name, description, cost):
         self.name = name
         self.description = description
+        self.cost = cost
 
     def use_item(self, character):
         print(f"{character.name} used {self.name}.")
@@ -11,7 +12,8 @@ class Potion(Item):
     def __init__(self):
         super().__init__(
             "Potion",
-            "Restores 50 HP."
+            "Restores 50 HP.",
+            20
         )
     
     def use_item(self, character):
@@ -25,7 +27,8 @@ class Sword(Item):
     def __init__(self):
         super().__init__(
             "Sword",
-            "Default iron sword, 5 ATK."
+            "Default iron sword, 5 ATK.",
+            40
         )
         self.damage = 5
     

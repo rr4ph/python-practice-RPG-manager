@@ -1,6 +1,6 @@
 from character import Character, load_data, load_random_enemy
 import json, sys, random
-from item import ITEM_DATABASE
+from item import ITEM_DATABASE, Item
 from textwrap import dedent
 
 class Game:
@@ -105,31 +105,15 @@ class Game:
         while True:
             print(dedent("""
             Inventory Menu:
-                1. Add item
-                2. Remove item
-                3. Use item
-                4. Check inventory
-                5. Exit inventory\n
+                1. Remove item
+                2. Use item
+                3. Check inventory
+                4. Exit inventory\n
                 """))
             
             choice = input("Choose your action: \n").lower().strip()
 
-            if choice in ["1", "add", "additem"]:
-                print(dedent("""
-                    1. Potion
-                    2. Sword
-                      """))
-                
-                item = input("Choose an item to add: \n").lower().strip()
-            
-                if item in ITEM_DATABASE:
-                    self.main_character.inventory.add_inventory_item(
-                        ITEM_DATABASE[item]()
-                    )
-                else:
-                    print("This item does not exist.")
-
-            elif choice in ["2", "remove", "removeitem"]:
+            if choice in ["1", "remove", "removeitem"]:
                 if not self.main_character.inventory.items:
                     print("Your inventory is empty.")
                     return
@@ -151,7 +135,7 @@ class Game:
                 else:
                     print("This item does not exist.")
 
-            elif choice in ["3", "use", "useitem"]:
+            elif choice in ["2", "use", "useitem"]:
                 if not self.main_character.inventory.items:
                     print("Your inventory is empty.")
                     return
@@ -174,10 +158,10 @@ class Game:
                 else:
                     print("This item does not exist.")
                 
-            elif choice in ["4", "check", "checkinventory"]:
+            elif choice in ["3", "check", "checkinventory"]:
                 self.main_character.inventory.open_inventory()
             
-            elif choice in ["5", "exit", "exitinventory"]:
+            elif choice in ["4", "exit", "exitinventory"]:
                 print("Leaving the inventory...")
                 break
 
@@ -191,7 +175,8 @@ class Game:
                 1. Inn (Restore HP)
                 2. Training Grounds (Fight Dummy)
                 3. Forest (Enemy encounters)
-                4. Exit (Return to main menu)\n
+                4. Shop (Buy and sell goods)
+                5. Exit (Return to main menu)\n
                 """))
             
             choice = input("Make your choice: \n").lower().strip()
@@ -241,7 +226,9 @@ class Game:
                     print("You lost consiousness, and later been found by guards and brought back.")
                 else:
                     print("Enemy fell by your hand, you return into the city with more experience.")
-            elif choice in ["4", "exit", "q", "return", "mainmenu"]:
+            elif choice in ["4", "shop", "buy", "sell"]:
+                self.shop_menu()
+            elif choice in ["5", "exit", "q", "return", "mainmenu"]:
                 print("Returning to the main menu...")
                 break
             else:
@@ -294,4 +281,89 @@ class Game:
                 print(f"You lost {gold_loss} coins!\n")
                 self.main_character.gold -= gold_loss
                 return
-                
+            
+    def shop_menu(self):
+        print(f"Welcome to my shop, {self.main_character.name}. Feel free to look around.")
+        while True:
+            print(dedent("""
+                        Shop "ATB" Menu:
+                        1. Buy items
+                        2. Sell items
+                        3. Leave\n
+                        """))
+            
+            choice = input("Choose your action: ").lower().strip()
+
+            if choice in ["1", "buy", "buyitems"]:
+                print("Here are the items I'm selling!\n")
+                while True:
+                    print(dedent(f"""
+                        {self.main_character.name}'s gold: {self.main_character.gold} coins
+
+                        1. Potion (20 coins)
+                        2. Sword  (40 coins)
+                        3. Quit\n
+                            """))
+                    
+                    purchase = input("Choose an item to purchase, or quit: \n").lower().strip()
+
+                    if purchase in ["3", "quit"]:
+                        break
+
+                    if purchase in ITEM_DATABASE:
+                        item = ITEM_DATABASE[purchase]()
+                        if self.main_character.gold < item.cost:
+                            print(f"Sorry, {self.main_character.name}, you're a few coins short.")
+                            continue
+                        else:
+                            self.main_character.gold -= item.cost
+                            self.main_character.inventory.add_inventory_item(item)
+                            print("Thanks for the purchase!")
+                    else:
+                        print("This item does not exist.")
+
+            elif choice in ["2", "sell", "sellitems"]:
+                print("Oh, let's see what you're offering!")
+                while True:
+                    print(dedent(f"""
+                                {self.main_character.name}'s gold: {self.main_character.gold} coins
+
+                                Swords: 20 coins each
+                                Potions: 10 coins each
+                                --- OR ---
+                                Q: Quit
+                                """))
+                    self.main_character.inventory.open_inventory()
+                    if not self.main_character.inventory.items:
+                        break
+
+                    selling_item = input("Choose an item to sell, or quit: ").lower().strip()
+
+
+                    if selling_item in ["q", "quit"]:
+                        break
+                    if selling_item.isdigit():
+                        selling_item = int(selling_item)
+                        if not (1 <= selling_item <= len(self.main_character.inventory.items)):
+                            print("There's no item with such ID.")
+                            continue
+                        integer_to_item = self.main_character.inventory.items[selling_item-1]
+                        
+                    elif selling_item in ITEM_DATABASE:
+                        selling_item = ITEM_DATABASE[selling_item]()
+
+                    if self.main_character.inventory.remove_inventory_item(selling_item):
+                        if isinstance(selling_item, int):
+                            selling_item = integer_to_item
+                        self.main_character.gold += (selling_item.cost // 2)
+                        print(f"{self.main_character.name} sold {selling_item.name} for {selling_item.cost // 2} coins!")
+                    else:
+                        print()
+            
+            elif choice in ["3", "leave", "q"]:
+                print("Already leaving? See you next time with a full pouch, haha!")
+                break
+            else:
+                print("Command is not valid.")
+
+                    
