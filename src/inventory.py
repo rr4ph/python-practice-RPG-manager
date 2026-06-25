@@ -6,10 +6,10 @@ class Inventory:
 
     def open_inventory(self):
         if not self.items:
-            print("Your inventory is empty.")
+            print("Your Everlast socks are empty.")
             return
         
-        print("Current items in backpack: \n")
+        print("Current items in Everlast socks: \n")
         current_items = {}
         for index, item in enumerate(self.items, start=1):
             current_items[index] = item.name.lower()
@@ -23,10 +23,10 @@ class Inventory:
             return False
         elif len(self.items) < 10:
             self.items.append(item)
-            print(f"{item.name} has been successfully added to the inventory.\n")
+            print(f"{item.name} has been successfully added to the Everlast socks.\n")
             return True
         else:
-            print("Your inventory is full.")
+            print("Your Everlast socks are full.")
             return False
 
     def remove_inventory_item(self, item):
@@ -36,7 +36,7 @@ class Inventory:
                     return False
                 
                 removableItem = self.items[item - 1]
-                print(f"{removableItem.name} has been removed from the inventory.\n")
+                print(f"{removableItem.name} has been removed from the Everlast socks.\n")
                 self.items.pop(item - 1)
                 return True
             elif not isinstance(item, Item):
@@ -45,10 +45,10 @@ class Inventory:
             for existingItem in self.items:
                 if existingItem.name.lower() == item.name.lower():
                     self.items.remove(existingItem)
-                    print(f"{item.name} has been removed from the inventory.\n")
+                    print(f"{item.name} has been removed from the Everlast socks.\n")
                     return True
             else:
-                print("This item is not in your inventory.")
+                print("This item is not in your Everlast socks.")
                 return False
 
     def use_inventory_item(self, item, character):
@@ -69,5 +69,5 @@ class Inventory:
                     return True
 
         else:
-            print(f"{item.name} is not in your inventory.")
+            print(f"{item.name} is not in your Everlast socks.")
             return False

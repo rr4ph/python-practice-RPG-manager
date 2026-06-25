@@ -11,8 +11,8 @@ class Item:
 class Potion(Item):
     def __init__(self):
         super().__init__(
-            "Potion",
-            "Restores 50 HP.",
+            "REVO",
+            "Restores 50 HP, tastes like regret.",
             20
         )
     
@@ -26,8 +26,8 @@ class Potion(Item):
 class Sword(Item):
     def __init__(self):
         super().__init__(
-            "Sword",
-            "Default iron sword, 5 ATK.",
+            "Dragon d1JId0",
+            "Twist doorknob in pizzeria for 342 times, +5 ATK.",
             40
         )
         self.damage = 5
@@ -58,8 +58,9 @@ class Sword(Item):
         print(f"Equipped {self.name}, +{self.damage} ATK.")
 
 ITEM_DATABASE = {
-    "potion": Potion,
+    "revo": Potion,
     "1": Potion,
-    "sword": Sword,
+    "dijido": Sword,
+    "dragon": Sword,
     "2": Sword
 }

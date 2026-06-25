@@ -1,35 +1,35 @@
 {
-    "bandit":{
+    "simon":{
         "max_health": 150,
         "health": 150,
-        "name": "Bandit",
+        "name": "Simon Solus",
         "attack": 15,
         "equipped_weapon": null,
         "inventory": [],
         "gold": 25
     },
-    "wolf":{
+    "jdh":{
         "max_health": 120,
         "health":120,
-        "name": "Wolf",
+        "name": "John Davie Automaton",
         "attack": 12,
         "equipped_weapon": null,
         "inventory": [],
         "gold": 20
     },
-    "goblin":{
+    "nate":{
         "max_health": 100,
         "health": 100,
-        "name": "Goblin",
+        "name": "Nate Higgers",
         "attack": 10,
         "equipped_weapon": null,
         "inventory": [],
         "gold": 15
     },
-    "banditleader":{
+    "mykpodik":{
         "max_health": 250,
         "health": 250,
-        "name": "Bandit Leader",
+        "name": "Mykpodik",
         "attack": 25,
         "equipped_weapon": null,
         "inventory": [],

@@ -6,9 +6,9 @@ from textwrap import dedent
 class Game:
     def __init__(self):
         self.main_character = None
-        self.dummyEasy = Character(100, 100, "Flimsy Dummy", 10)
-        self.dummyMedium = Character(150, 150, "Sturdy Dummy", 15)
-        self.dummyHard = Character(200, 200, "Invincible Dummy", 20)
+        self.dummyEasy = Character(100, 100, "Dupu_>I<aI5_JIb", 10)
+        self.dummyMedium = Character(150, 150, "Me7apb", 15)
+        self.dummyHard = Character(200, 200, "Mrkgrstraklar", 20)
         self.dummyCustom = None
 
     def exit_game(self):
@@ -21,22 +21,22 @@ class Game:
             try:
                 health = int(input("Choose the health of the character(200-350): "))
                 if not 200 <= health <= 350:
-                    print("Invalid health value. Try again.")
+                    print("Invalid health value. Try again when you're sober.")
                 else:
                     break
             except ValueError:
-                print("Invalid value, please, enter a whole number.")
+                print("Invalid value, please, enter a whole number before I bomb Iraq.")
         max_health = health
 
         while True:
             try:
                 attack = int(input("Choose the damage of the character(20-35): "))
                 if not 20 <= attack <= 35:
-                    print("Invalid attack value. Try again.")
+                    print("Invalid attack value. Try again, because I'm using Evo Megaknight.")
                 else:
                     break
             except ValueError:
-                print("Invalid value, please, enter whole number.")
+                print("Invalid value, please, enter whole number))))")
 
         return Character(max_health, health, name, attack)
 
@@ -66,7 +66,7 @@ class Game:
             elif choice_create in ["3", "exit", "exitgame"]:
                 self.exit_game()
             else:
-                print("Invalid command.")
+                print("Invalid is you.")
 
     def main_game_menu(self):
         while True:
@@ -75,7 +75,7 @@ class Game:
                 1. Show Status
                 2. Enter Town
                 3. Save Character
-                4. Open Inventory
+                4. Open Everlast Socks
                 5. Exit\n
                 """))
             
@@ -105,7 +105,7 @@ class Game:
                     print("Command is not valid.")
 
             else:
-                print("Invalid command.")
+                print("Invalid is you.")
 
 
     def inventory_menu(self):
@@ -114,8 +114,8 @@ class Game:
             Inventory Menu:
                 1. Remove item
                 2. Use item
-                3. Check inventory
-                4. Exit inventory\n
+                3. Check Everlast Socks
+                4. Put sock back on foot\n
                 """))
             
             choice = input("Choose your action: ").lower().strip()
@@ -123,7 +123,7 @@ class Game:
             if choice in ["1", "remove", "removeitem"]:
                 while True:
                     if not self.main_character.inventory.items:
-                        print("Your inventory is empty.")
+                        print("Your Everlast Socks are empty.")
                         break
                     
                     current_items = self.main_character.inventory.open_inventory()
@@ -149,7 +149,7 @@ class Game:
             elif choice in ["2", "use", "useitem"]:
                 while True:
                     if not self.main_character.inventory.items:
-                        print("Your inventory is empty.")
+                        print("Your Everlast Socks are empty.")
                         break
                     
                     current_items = self.main_character.inventory.open_inventory()
@@ -174,11 +174,11 @@ class Game:
                     else:
                         print("This item does not exist.")
                 
-            elif choice in ["3", "check", "checkinventory"]:
+            elif choice in ["3", "check", "checkeverlastsocks"]:
                 self.main_character.inventory.open_inventory()
             
-            elif choice in ["4", "exit", "exitinventory"]:
-                print("Leaving the inventory...")
+            elif choice in ["4", "put", "puton", "putbackon", "q"]:
+                print("Putting Everlast Socks back on...")
                 break
 
             else:
@@ -187,44 +187,44 @@ class Game:
     def town_menu(self):
         while True:
             print(dedent("""
-            Town of Gloosgaw Menu:
-                1. Inn (Restore HP)
-                2. Training Grounds (Fight Dummy)
-                3. Forest (Enemy encounters)
-                4. Shop (Buy and sell goods)
+            Yakutiya Menu:
+                1. Igloo (Restore HP)
+                2. Cages (Practice)
+                3. Gulag (Enemy encounters)
+                4. ATB (Buy and sell goods)
                 5. Exit (Return to main menu)\n
                 """))
             
             choice = input("Make your choice: ").lower().strip()
 
-            if choice in ["1", "inn", "restore", "hp"]:
-                print(f"{self.main_character.name} rested at the Inn. HP fully restored.")
+            if choice in ["1", "igloo", "restore", "hp"]:
+                print(f"{self.main_character.name} froze ass off at the Igloo. HP fully restored.")
                 self.main_character.heal_full()
 
-            elif choice in ["2", "training", "fight", "fightdummy", "trainingrounds"]:
-                print(f"Ah, {self.main_character.name}, we already set up a row of new dummies. Pick your target.")
+            elif choice in ["2", "practice", "cages", "fightdummy", "trainingrounds"]:
+                print(f"Ah, {self.main_character.name}, we already set up a row of guilty people, Pick your target.")
                 while True:
                     fightChoice = input(dedent("""
                                     Pick your difficulty:
-                                    1. Flimsy Dummy (Easy)
-                                    2. Sturdy Dummy (Medium)
-                                    3. Invincible Dummy (Hard)
-                                    4. Adjustable Dummy (Custom)
+                                    1. Dupu_>I<aI5_JIb (Easy)
+                                    2. Me7apb (Medium)
+                                    3. Mrkgrstraklar (Hard)
+                                    4. Adjustable Boxers (Custom)
                                     5. Exit
                                         """)).lower().strip()
-                    if fightChoice in ["1", "flimsy", "flimsydummy", "easy"]:
-                        print("This one had a rough day, go easy on the guy...or not.")
+                    if fightChoice in ["1", "Dupu_>I<aI5_JIb", "flimsydummy", "easy"]:
+                        print("Don't turn your back on this one.")
                         self.fight_sequence_menu(self.dummyEasy, lose_gold_on_death=False)
                         self.dummyEasy.heal_full()
-                    elif fightChoice in ["2", "sturdy", "sturdydummy", "medium"]:
-                        print("Classic. Go on, give it your best!")
+                    elif fightChoice in ["2", "Me7apb", "sturdydummy", "medium"]:
+                        print("Classic. Go on, use Tolyan!")
                         self.fight_sequence_menu(self.dummyMedium, lose_gold_on_death=False)
                         self.dummyMedium.heal_full()
-                    elif fightChoice in ["3", "invincible", "invincibledummy", "hard"]:
-                        print("This one? Even I barely landed a hit, it's a tough nut to crack.")
+                    elif fightChoice in ["3", "Mrkgrstraklar", "invincibledummy", "hard"]:
+                        print("This one? Even I barely landed a hit, he's a tough nut to crack.")
                         self.fight_sequence_menu(self.dummyHard, lose_gold_on_death=False)
                         self.dummyHard.heal_full()
-                    elif fightChoice in ["4", "adjustable", "adjustabledummy", "custom"]:
+                    elif fightChoice in ["4", "adjustable", "adjustableboxers", "custom"]:
                         print("Oh, we didn't finish working on this one yet. It's all yours.")
                         self.dummyCustom = self.create_character()
                         self.fight_sequence_menu(self.dummyCustom, lose_gold_on_death=False)
@@ -233,10 +233,10 @@ class Game:
                         print("Come back another time, it's been good seeing you!")
                         break
                     else:
-                        print(f"We don't have a dummy like that, {self.main_character.name}.")
+                        print(f"We don't have a prisoner like that, {self.main_character.name}.")
 
-            elif choice in ["3", "forest", "enemy", "enemyencounter"]:
-                print("You enter forest in pursuit of a challenge.\n")
+            elif choice in ["3", "gulag", "enemy", "enemyencounter"]:
+                print("You enter gulag in pursuit of an ass-whooping.\n")
                 while True:
                     print(dedent("""
                                 1. Random Encounter
@@ -251,17 +251,17 @@ class Game:
                         print(f"A {enemy.name} appeared!\n")
                         self.fight_sequence_menu(enemy)
                         if self.main_character.health == 0:
-                            print("You lost consiousness, and later been found by guards and brought back.")
+                            print("You lost consiousness, and later been revived by Jett.")
                             break
                         else:
-                            print("Enemy fell by your hand, you gain more experience.")
+                            print("Enemy fell by your hand, +respect.")
 
                     elif choice in ["2", "boss", "bossrush"]:
                         enemies = [
-                            load_enemy("goblin"),
-                            load_enemy("wolf"),
-                            load_enemy("bandit"),
-                            load_enemy("banditleader")
+                            load_enemy("simon"),
+                            load_enemy("jdh"),
+                            load_enemy("nate"),
+                            load_enemy("mykpodik")
                         ]
 
                         for index, enemy in enumerate(enemies, start=1):
@@ -273,7 +273,7 @@ class Game:
                                 print("Come back stronger next time!")
                                 return
                             
-                            print("You patch up your wounds before next battle, 50 HP restored.")
+                            print("You eat salo, 50 HP restored.")
                             self.main_character.heal(50)
 
                         self.victory_screen()   
@@ -309,13 +309,13 @@ class Game:
                 if choice in ["1", "attack"]:
                     self.main_character.attack_sequence(enemy)
                     if not enemy.health_check():
-                        print(f"You found {enemy.gold} coins.\n")
+                        print(f"You found {enemy.gold} UAH.\n")
                         self.main_character.gold += enemy.gold
                         return
                     break
                 elif choice in ["2", "use", "useitem"]:
                     if not self.main_character.inventory.items:
-                        print("Your inventory is empty.")
+                        print("Your Everlast Socks are empty.")
                         continue
                     self.main_character.inventory.open_inventory()
                     inventory_choice = input("Choose the item to use, or `quit` to leave inventory: ").lower().strip()
@@ -323,7 +323,7 @@ class Game:
                         inventory_choice = int(inventory_choice)
                     if self.main_character.inventory.use_inventory_item(inventory_choice, self.main_character):
                         break
-                    print("Leaving the inventory.")
+                    print("Putting Everlast Socks back on.")
                 elif choice in ["3", "flee"]:
                     if random.random() < 0.5:
                         print(f"You escaped {enemy.name}!")
@@ -341,11 +341,11 @@ class Game:
                     print(f"You lost {gold_loss} coins!\n")
                     self.main_character.gold -= gold_loss
                 self.main_character.heal_full()
-                print("You rest up, and restore your health after defeat.")
+                print("You rest up, and restore your health after brutal ass-whooping.")
                 return
             
     def shop_menu(self):
-        print(f"Welcome to my shop, {self.main_character.name}. Feel free to look around.")
+        print(f"Welcome to ATB, {self.main_character.name}. Miroshprotets stole last Guiness bottle, so don't ask me.")
         while True:
             print(dedent("""
                         Shop "ATB" Menu:
@@ -360,10 +360,10 @@ class Game:
                 print("Here are the items I'm selling!\n")
                 while True:
                     print(dedent(f"""
-                        {self.main_character.name}'s gold: {self.main_character.gold} coins
+                        {self.main_character.name}'s money: {self.main_character.gold} UAH
 
-                        1. Potion (20 coins)
-                        2. Sword  (40 coins)
+                        1. REVO (20 coins)
+                        2. Dragon d1JId0 (40 coins)
                         3. Quit\n
                             """))
                     
@@ -375,14 +375,14 @@ class Game:
                     if purchase in ITEM_DATABASE:
                         item = ITEM_DATABASE[purchase]()
                         if self.main_character.gold < item.cost:
-                            print(f"Sorry, {self.main_character.name}, you're a few coins short.")
+                            print(f"{self.main_character.name}, you're a bum.")
                             continue
                         else:
                             if self.main_character.inventory.add_inventory_item(item):
                                 self.main_character.gold -= item.cost
                                 print("Thanks for the purchase!")
                             else:
-                                print("Where do you plan to carry all this stuff? Clean up your inventory, friend!")
+                                print("Where do you plan to carry all this stuff? Clean up your socks!")
                                 continue
                     else:
                         print("This item does not exist.")
@@ -391,10 +391,10 @@ class Game:
                 print("Oh, let's see what you're offering!")
                 while True:
                     print(dedent(f"""
-                                {self.main_character.name}'s gold: {self.main_character.gold} coins
+                                {self.main_character.name}'s money: {self.main_character.gold} UAH
 
-                                Swords: 20 coins each
-                                Potions: 10 coins each
+                                Dragon d1JId0: 20 coins each
+                                REVO: 10 coins each
                                 --- OR ---
                                 Q: Quit
                                 """))
@@ -421,12 +421,12 @@ class Game:
                         if isinstance(selling_item, int):
                             selling_item = integer_to_item
                         self.main_character.gold += (selling_item.cost // 2)
-                        print(f"{self.main_character.name} sold {selling_item.name} for {selling_item.cost // 2} coins!")
+                        print(f"{self.main_character.name} sold {selling_item.name} for {selling_item.cost // 2} UAH!")
                     else:
                         print()
             
             elif choice in ["3", "leave", "q"]:
-                print("Already leaving? See you next time with a full pouch, haha!")
+                print("Already leaving? Track down the Miroshprotets for me, will ya?")
                 break
             else:
                 print("Command is not valid.")
@@ -439,12 +439,9 @@ class Game:
 
 ===================================
 
-The Bandit Leader has fallen.
-
-The roads around Gloosgaw are safe once more.
+Mykpodik admires your strength and gives you a universal clap, and a gymchik pass.
 
 {self.main_character.name}'s journey has come to an end.
 
-Thank you for completing Raphael-Playing-Game.
 """)
                     

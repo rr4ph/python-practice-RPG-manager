@@ -18,7 +18,7 @@ class Character:
 Name: {self.name}
 Health: {self.health}/{self.max_health} HP
 Attack: {self.attack} ATK
-Gold: {self.gold} coins""")
+Money: {self.gold} UAH""")
         if not self.equipped_weapon:
             print("Weapon: No weapon equipped.")
         else:
@@ -104,7 +104,7 @@ def load_random_enemy():
     
     possible_enemies = [
         key for key in enemy_data
-        if key != "banditleader"
+        if key != "mykpodik"
     ]
         
     enemy_key = random.choice(possible_enemies)
