@@ -61,7 +61,7 @@ class Game:
                     self.main_character = load_data()
                     print(f"{self.main_character.name} has been successfully loaded!")
                     return self.main_character
-                except json.JSONDecodeError, FileNotFoundError:
+                except (json.JSONDecodeError, FileNotFoundError):
                     print("Save file is empty or corrupted.")
             elif choice_create in ["3", "exit", "exitgame"]:
                 self.exit_game()
